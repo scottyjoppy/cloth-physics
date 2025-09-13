@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Ball.h"
+#include "Point.h"
 #include "Stick.h"
 
 #include <SFML/Graphics.hpp>
@@ -13,6 +14,7 @@ class Collision
         inline static float m_f = 0.f;
 
     public:
-        static bool StickVsBall(const Stick& stick, const Ball& ball);
-        static void BallVsWindow(Ball& ball, const sf::RenderWindow& window);
+        static void CircleVsCircle(Point& p, Ball& b);
+        static void StickVsBall(Stick& stick, Ball& ball);
+        static void CircleVsWindow(sf::Vector2f& pos, sf::Vector2f& prePos, sf::Vector2f& v, const float r, const sf::RenderWindow& window);
 };

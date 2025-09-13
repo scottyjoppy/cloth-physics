@@ -168,11 +168,16 @@ int main()
                 for (auto& s : sticks)
                 {
                     s.Update();
+                    for (auto& b : balls) Collision::StickVsBall(s, b);
                 }
 
-                // Constrain Points
-                for (auto& p : points) p.Constrain(friction, bounce);
-                for (auto& b : balls) Collision::BallVsWindow(b, window); 
+                // Constrain
+                for (auto& p : points) Collision::CircleVsWindow(p.m_pos, p.m_prePos, p.m_v, p.m_radius, window);
+                for (auto& b : balls) 
+                {
+                    Collision::CircleVsWindow(b.m_pos, b.m_prePos, b.m_v, b.m_radius, window); 
+                    for (auto&p : points) Collision::CircleVsCircle(p, b);
+                }
             }
 
             accumulator -= fixedDt;
