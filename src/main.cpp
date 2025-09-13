@@ -16,8 +16,8 @@ sf::Vector2u windowSize(1920, 1080);
 int main()
 {
     // MAGIC
-    float bounce = 0.9f;
     float gravity = 0.5f;
+    float bounce = 0.9f;
     float friction = 0.999f;
     float fps = 60.f;
 
@@ -36,6 +36,10 @@ int main()
     FrameRate fr;
     fr.Initialize();
     fr.Load();
+
+    Collision::m_g = gravity;
+    Collision::m_b = bounce;
+    Collision::m_f = friction;
 
 
     std::vector<Stick> sticks;
@@ -164,16 +168,11 @@ int main()
                 for (auto& s : sticks)
                 {
                     s.Update();
-                    for (auto& b : balls)
-                    {
-                        if (Collision::StickVsBall(s, b))
-                            std::cout << "AHH" << std::endl;
-                    }
                 }
 
                 // Constrain Points
                 for (auto& p : points) p.Constrain(friction, bounce);
-                for (auto& b : balls) b.Constrain(friction, bounce);
+                for (auto& b : balls) Collision::BallVsWindow(b, window); 
             }
 
             accumulator -= fixedDt;

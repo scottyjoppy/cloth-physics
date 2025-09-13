@@ -29,5 +29,4 @@ class Ball
         void Load();
         void Update(float friction, float gravity);
         void Draw();
-        void Constrain(float friction, float bounce);
 };

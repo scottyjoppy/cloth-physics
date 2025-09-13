@@ -25,3 +25,33 @@ bool Collision::StickVsBall(const Stick& stick, const Ball& ball)
     return dist <= ball.m_radius;
 }
 
+void Collision::BallVsWindow(Ball& ball, const sf::RenderWindow& window)
+{
+    sf::Vector2u winS = window.getSize();
+    sf::Vector2f& pos = ball.m_pos;
+    sf::Vector2f& prePos = ball.m_prePos;
+    sf::Vector2f& v = ball.m_v;
+    float r = ball.m_radius;
+
+    if (pos.x > winS.x - r)
+    {
+        pos.x = winS.x - r;
+        prePos.x = pos.x + v.x * m_b;
+    }
+    else if (pos.x < r)
+    {
+        pos.x = r;
+        prePos.x = pos.x + v.x * m_b;
+    }
+
+    if (pos.y > winS.y - r)
+    {
+        pos.y = winS.y - r;
+        prePos.y = pos.y + v.y * m_b;
+    }
+    else if (pos.y < r)
+    {
+        pos.y = r;
+        prePos.y = pos.y + v.y * m_b;
+    }
+}

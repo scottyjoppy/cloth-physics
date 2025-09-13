@@ -46,31 +46,3 @@ void Ball::Draw()
     circle.setPosition(m_pos);
     m_window.draw(circle);
 }
-
-void Ball::Constrain(float friction, float bounce)
-{
-    sf::Vector2u windowSize = m_window.getSize();
-
-    if (m_pos.x > windowSize.x - m_radius)
-    {
-        m_pos.x = windowSize.x - m_radius;
-        m_prePos.x = m_pos.x + m_v.x * bounce;
-    }
-    else if (m_pos.x < m_radius)
-    {
-        m_pos.x = m_radius;
-        m_prePos.x = m_pos.x + m_v.x * bounce;
-    }
-
-    if (m_pos.y > windowSize.y - m_radius)
-    {
-        m_pos.y = windowSize.y - m_radius;
-        m_prePos.y = m_pos.y + m_v.y * bounce;
-    }
-    else if (m_pos.y < m_radius)
-    {
-        m_pos.y = m_radius;
-        m_prePos.y = m_pos.y + m_v.y * bounce;
-    }
-
-}
